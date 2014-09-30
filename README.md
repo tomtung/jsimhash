@@ -116,6 +116,38 @@ Park Beach Interiors, Showroom Park Beach Plaza Pacific Hwy, Coffs Harbour, NSW,
 Park Beach Interiors, Showroom Park Beach Plaza Pacific Highway, Coffs Harbour, NSW, 2450
 ```
 
+## Add as dependency in Maven / SBT projects
+
+To add dependency on jSimHash, insert the following to your `pom.xml` file if you use Apache Maven:
+
+```xml
+<repositories>
+    <!-- Other repositories ... -->
+    <repository>
+        <id>Sonatype OSS Snapshots</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    </repository>
+</repositories>
+
+<dependencies>
+    <!-- Other dependencies ... -->
+    <dependency>
+        <groupId>com.github.tomtung</groupId>
+        <artifactId>jsimhash</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </dependency>
+</dependencies>
+```
+
+or add the following to your `build.sbt` file if you use sbt 0.11+:
+
+```scala
+libraryDependencies += "com.github.tomtung" % "jsimhash" % "0.1-SNAPSHOT"
+
+resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
+```
+
+
 ## References
 
 - [Charikar, M. S. (2002). Similarity Estimation Techniques from Rounding Algorithms. In Proceedings of the Thiry-fourth Annual ACM Symposium on Theory of Computing](http://www.cs.princeton.edu/courses/archive/spr04/cos598B/bib/CharikarEstim.pdf)
