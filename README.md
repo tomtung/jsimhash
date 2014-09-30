@@ -1,4 +1,4 @@
-# jSimHash [![Build Status](https://api.travis-ci.org/tomtung/jsimhash)](https://travis-ci.org/tomtung/jsimhash)
+# jSimHash [![Build Status](https://travis-ci.org/tomtung/jsimhash.svg?branch=master)](https://travis-ci.org/tomtung/jsimhash)
 
 jSimHash is a simple JVM library for building [simhash](http://www.cs.princeton.edu/courses/archive/spr04/cos598B/bib/CharikarEstim.pdf) fingerprints and using them to [detect near-duplications](http://www.wwwconference.org/www2007/papers/paper215.pdf) in data, especially text documents.
 
