@@ -133,7 +133,7 @@ To add dependency on jSimHash, insert the following to your `pom.xml` file if yo
     <!-- Other dependencies ... -->
     <dependency>
         <groupId>com.github.tomtung</groupId>
-        <artifactId>jsimhash</artifactId>
+        <artifactId>jsimhash_2.11</artifactId>
         <version>0.1-SNAPSHOT</version>
     </dependency>
 </dependencies>
@@ -142,7 +142,7 @@ To add dependency on jSimHash, insert the following to your `pom.xml` file if yo
 or add the following to your `build.sbt` file if you use sbt 0.11+:
 
 ```scala
-libraryDependencies += "com.github.tomtung" % "jsimhash" % "0.1-SNAPSHOT"
+libraryDependencies += "com.github.tomtung" %% "jsimhash" % "0.1-SNAPSHOT"
 
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
 ```
