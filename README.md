@@ -6,9 +6,7 @@ jSimHash is a simple JVM library for building [simhash](http://www.cs.princeton.
 
 ```java
 import com.google.common.base.Strings;
-import com.github.tomtung.simhash.SimHashBuilder;
-import com.github.tomtung.simhash.SimHashIndex;
-import com.github.tomtung.simhash.Util;
+import com.github.tomtung.jsimhash.*;
 
 import java.util.HashMap;
 
@@ -17,9 +15,9 @@ public class Main {
 
     static long computeStringFingerprint(String s) {
         simHashBuilder.reset();
-        int shinglingLength = 3;
+        int shinglingLength = 2;
         s = s.replaceAll("[^\\w,]+", " ").toLowerCase();
-        for (int i = 0; i < s.length() - shinglingLength; i += 1) {
+        for (int i = 0; i <= s.length() - shinglingLength; i += 1) {
             simHashBuilder.addStringFeature(s.substring(i, i + shinglingLength));
         }
         return simHashBuilder.computeResult();
@@ -30,7 +28,7 @@ public class Main {
         System.out.println("Strings and their fingerprints:");
         System.out.println(Strings.repeat("-", 90));
 
-        String query = "Park Beach Interiors, Park Beach Plaza Pacific Hwy, Coffs Harbour, NSW, 2450";
+        String query =  "Park Beach Interiors, Showroom Park Beach Plaza Pacific Hwy, Coffs Harbour, NSW, 2450";
         long queryFingerprint = computeStringFingerprint(query);
         System.out.format("Query string:\n" + "%s\n" + "%s\n\n", query, Util.simHashToString(queryFingerprint));
 
@@ -38,15 +36,15 @@ public class Main {
         System.out.println("Test strings:\n");
 
         String[] strings = {
+                "Park Beach Interiors, Park Beach Plaza Pacific Hwy, Coffs Harbour, NSW, 2450",
                 "Park Beach Interiors, 26 Park Beach Plaza, Pacific Hwy, Coffs Harbour, NSW, 2450",
-                "Park Beach Interiors, Showroom Park Beach Plaza Pacific Hwy, Coffs Harbour, NSW, 2450",
                 "Park Beach Interiors, Showroom Park Beach Plaza Pacific Highway, Coffs Harbour, NSW, 2450",
                 "Weaver Interiors, 997 Pacific Hwy, Pymble, NSW, 2073",
                 "One Stop Bakery, 1304 High Street Rd, Wantirna South, VIC, 3152",
                 "This is not an address."
         };
 
-        SimHashIndex simHashIndex = new SimHashIndex(4);
+        SimHashIndex simHashIndex = new SimHashIndex(6);
 
         HashMap<Long, String> fingerPrintToString = new HashMap<>();
         for (String s : strings) {
@@ -79,41 +77,41 @@ Output:
 Strings and their fingerprints:
 ------------------------------------------------------------------------------------------
 Query string:
-Park Beach Interiors, Park Beach Plaza Pacific Hwy, Coffs Harbour, NSW, 2450
-1111111111111111111111111111111111100111111111110110010111110011
+Park Beach Interiors, Showroom Park Beach Plaza Pacific Hwy, Coffs Harbour, NSW, 2450
+0100000111011000001000100000111001101000011110101100101011011010
 
 Test strings:
 
-Park Beach Interiors, 26 Park Beach Plaza, Pacific Hwy, Coffs Harbour, NSW, 2450
-1111111111111111111111111111111111100111111101111110110111110011
+Park Beach Interiors, Park Beach Plaza Pacific Hwy, Coffs Harbour, NSW, 2450
+0100000111111000001000100000111001101000010110101100101001011010
 Hamming distance to query string: 3
 
-Park Beach Interiors, Showroom Park Beach Plaza Pacific Hwy, Coffs Harbour, NSW, 2450
-1111111111111111111111111111111111100101111111110110110111110011
-Hamming distance to query string: 2
+Park Beach Interiors, 26 Park Beach Plaza, Pacific Hwy, Coffs Harbour, NSW, 2450
+0101001101111000001000100000111001101000010110101100101011011000
+Hamming distance to query string: 6
 
 Park Beach Interiors, Showroom Park Beach Plaza Pacific Highway, Coffs Harbour, NSW, 2450
-1111111111111111111111111111111111000110111111110110111111110011
-Hamming distance to query string: 4
+0100000111111001001001100000111001101000011110001100001011011010
+Hamming distance to query string: 5
 
 Weaver Interiors, 997 Pacific Hwy, Pymble, NSW, 2073
-1111111111111111111111111111111111011111101001111110110111110111
-Hamming distance to query string: 9
+1100001101011101000000100000101011001101101001001110110100001101
+Hamming distance to query string: 27
 
 One Stop Bakery, 1304 High Street Rd, Wantirna South, VIC, 3152
-1111111111111111111111111111111111011101111111010111110110110001
-Hamming distance to query string: 9
+0110101101000100010001001010110001101100011101101010011101111100
+Hamming distance to query string: 26
 
 This is not an address.
-1111111111111111111111111111111111111111000001011011011011000010
-Hamming distance to query string: 16
+0010110010000100100101001000110000011001011100000001011010010010
+Hamming distance to query string: 29
 
 
 Find near duplicates for query string:
 ------------------------------------------------------------------------------------------
-Park Beach Interiors, 26 Park Beach Plaza, Pacific Hwy, Coffs Harbour, NSW, 2450
-Park Beach Interiors, Showroom Park Beach Plaza Pacific Hwy, Coffs Harbour, NSW, 2450
 Park Beach Interiors, Showroom Park Beach Plaza Pacific Highway, Coffs Harbour, NSW, 2450
+Park Beach Interiors, Park Beach Plaza Pacific Hwy, Coffs Harbour, NSW, 2450
+Park Beach Interiors, 26 Park Beach Plaza, Pacific Hwy, Coffs Harbour, NSW, 2450
 ```
 
 ## Add as dependency in Maven / SBT projects

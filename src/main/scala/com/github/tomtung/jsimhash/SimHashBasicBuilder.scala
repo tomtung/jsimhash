@@ -20,9 +20,9 @@ class SimHashBasicBuilder {
       if (i < 64) {
         val currBit =
           if (counter(i) > 0) {
-            1
+            1L
           } else {
-            0
+            0L
           }
 
         doCompute(i + 1, hash | (currBit << i))
